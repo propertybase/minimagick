@@ -161,7 +161,8 @@ module MiniMagick
       # @return [Image] The created image
       def create(ext = nil, validate = true, &block)
         begin
-          tempfile = Tempfile.new(['mini_magick', ext.to_s.downcase])
+          unique_id = rand(0x100000000).to_s(36)
+          tempfile = Tempfile.new(["mini_magick_#{unique_id}", ext.to_s.downcase])
           tempfile.binmode
           block.call(tempfile)
           tempfile.close
